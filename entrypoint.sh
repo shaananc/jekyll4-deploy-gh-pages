@@ -20,6 +20,7 @@ if [ ! -z $YARN_ENV ]; then
 fi
 
 JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll build
+JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
 
 echo "Publishing..."
 
