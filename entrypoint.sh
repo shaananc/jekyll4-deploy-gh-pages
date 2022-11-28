@@ -20,7 +20,12 @@ if [ ! -z $YARN_ENV ]; then
 fi
 
 JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll build
-JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
+
+if [[ -z "${ALGOLIA_API_KEY}" ]]; then
+  echo "No Algolia API key provided"
+else
+  JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
+fi
 
 echo "Publishing..."
 
