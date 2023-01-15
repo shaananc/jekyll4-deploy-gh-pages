@@ -27,6 +27,15 @@ else
   JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
 fi
 
+cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
+  echo "Building Jekyll site for version ${version}..."
+  bash build-version.sh ${version}
+  #JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll build --config _config.yml,_config.${version}.yml
+done
+
+publishdate=$(date +%m-%d-%Y)
+echo $publishdate >publishdate.log
+
 echo "Publishing..."
 
 cd ${DEST}
@@ -36,4 +45,4 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git add .
 git commit -m "published by GitHub Actions"
-git push --force ${REPO} master:${BRANCH}
+#git push --force ${REPO} master:${BRANCH}
