@@ -18,6 +18,7 @@ RUN apk add --update-cache \
     libxslt-dev \
     gcompat \
     vips \
+    vips-tools \
     && rm -rf /var/cache/apk/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
@@ -25,10 +26,9 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 
 # install a modern bundler version
 RUN gem install bundler
-RUN gem install nokogiri --platform=ruby -- --use-system-libraries
 
 
 ADD build-version.sh /build-version.sh
 ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["bash","/entrypoint.sh"]
+#ENTRYPOINT ["bash","/entrypoint.sh"]
