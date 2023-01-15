@@ -34,6 +34,7 @@ fi
 mkdir -p ~/.ssh && true
 echo "$DEPLOY_KEY" >~/.ssh/id_ed25519
 chmod 600 ~/.ssh/id_ed25519
+eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_ed25519 && true
 
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
