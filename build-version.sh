@@ -36,7 +36,8 @@ build_dir="/tmp/build_$last_SHA_$version"
 echo $build_dir
 # Check out the branch containing versioned content for site
 git checkout $version
-bundle install
+bundle config build.ffi --disable-system-libffi
+bundle install --jobs 4 --retry 3
 bundle exec jekyll build \
     --config _config.yml,_config.$version.yml \
     -d $build_dir/$project_name/$version/ #>/dev/null 2>&1
