@@ -1,12 +1,12 @@
 FROM ruby:3.1.3-alpine3.17
 
 RUN apk add --update-cache \
-    vips \
-    libpng \
-    libwebp \
-    libjpeg \
-    libheif \
-    libffi \
+    vips-dev \
+    libpng-dev \
+    libwebp-dev \
+    jpeg-dev \
+    libheif-dev \
+    libffi-dev \
     bash \
     git \
     gcc \
@@ -14,6 +14,8 @@ RUN apk add --update-cache \
     openssh \
     openssl \
     openssl-dev \
+    libxml2-dev \
+    libxslt-dev \
     && rm -rf /var/cache/apk/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
@@ -21,6 +23,7 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 
 # install a modern bundler version
 RUN gem install bundler
+RUN gem install nokogiri --platform=ruby -- --use-system-libraries
 
 
 ADD build-version.sh /build-version.sh
