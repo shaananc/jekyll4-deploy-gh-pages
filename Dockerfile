@@ -8,6 +8,7 @@ RUN apk add --update-cache \
     libheif \
     libffi \
     bash \
+    git \
     && rm -rf /var/cache/apk/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
