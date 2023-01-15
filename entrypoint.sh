@@ -2,6 +2,8 @@
 
 set -e
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 DEST="${JEKYLL_DESTINATION:-_site}"
 REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 BRANCH="gh-pages"
@@ -29,7 +31,7 @@ fi
 
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Building Jekyll site for version ${version}..."
-  bash build-version.sh ${version}
+  bash $SCRIPT_DIR/build-version.sh ${version}
   #JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll build --config _config.yml,_config.${version}.yml
 done
 
@@ -45,4 +47,4 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git add .
 git commit -m "published by GitHub Actions"
-#git push --force ${REPO} master:${BRANCH}
+git push --force ${REPO} master:${BRANCH}

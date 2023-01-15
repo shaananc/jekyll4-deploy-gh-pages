@@ -48,7 +48,7 @@ else
 fi
 # copy built files to a version subdirectory under the original_wd
 mkdir -p $original_wd/$version/
-cp -r $build_dir/$project_name/$version/ $original_wd/$version/
+cp -r $build_dir/$project_name/$version/ $original_wd/_site/$version/
 
 # # Check out origin gh-pages branch
 # echo "Checking out gh-pages branch"
