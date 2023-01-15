@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libheif-dev \
     libffi-dev \
+    libffi8 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
