@@ -16,8 +16,11 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 # install a modern bundler version
 RUN gem install bundler
 
+# hack that would normally be bad but acceptable given stability of libffi
+RUN ln -s $(find / -name "libffi.so.7" | head -n1) $(find / -name "libffi.so.7" | head -n1 | xargs dirname)/libffi.so.8
+
 
 ADD build-version.sh /build-version.sh
 ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/entrypoint.sh"]
