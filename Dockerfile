@@ -23,4 +23,4 @@ RUN ln -s $(find / -name "libffi.so.7" | head -n1) $(find / -name "libffi.so.7" 
 ADD build-version.sh /build-version.sh
 ADD entrypoint.sh /entrypoint.sh
 
-#ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
