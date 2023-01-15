@@ -29,7 +29,7 @@ fi
 mkdir $clone_dir
 cd $clone_dir
 # Clone a clean copy of master from GitHub
-git clone git@github.com:shaananc/$project_name
+GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone git@github.com:shaananc/$project_name
 cd $project_name
 # Variable for temporary build output files location
 build_dir="/tmp/build_$last_SHA_$version"

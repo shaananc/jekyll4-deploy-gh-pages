@@ -29,10 +29,6 @@ else
   JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
 fi
 
-#mkdir -p ~/.ssh && touch ~/.ssh/known_hosts && true
-#ssh-keyscan github.com >>~/.ssh/known_hosts
-git config core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Building Jekyll site for version ${version}..."
   bash $SCRIPT_DIR/build-version.sh ${version}
