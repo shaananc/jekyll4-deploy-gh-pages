@@ -15,9 +15,7 @@ echo "Installing gems..."
 bundle config path vendor/bundle
 bundle config build.ffi --disable-system-libffi
 bundle install --jobs 4 --retry 3
-# hack for ffi gem to work on old debian runners
-gem uninstall ffi
-gem install ffi --disable-system-libffi
+
 echo "Building Jekyll site..."
 
 if [ ! -z $YARN_ENV ]; then
