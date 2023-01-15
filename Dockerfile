@@ -9,7 +9,9 @@ RUN apk add --update-cache \
     libffi \
     bash \
     git \
-    make \
+    gcc \
+    build-base \
+    ssh \
     && rm -rf /var/cache/apk/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
@@ -22,4 +24,4 @@ RUN gem install bundler
 ADD build-version.sh /build-version.sh
 ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["bash","/entrypoint.sh"]
+#ENTRYPOINT ["bash","/entrypoint.sh"]
