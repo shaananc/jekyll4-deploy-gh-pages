@@ -29,6 +29,8 @@ else
   JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
 fi
 
+ssh-keyscan github.com >>~/.ssh/known_hosts
+
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Building Jekyll site for version ${version}..."
   bash $SCRIPT_DIR/build-version.sh ${version}
