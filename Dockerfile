@@ -13,6 +13,7 @@ RUN apk add --update-cache \
     build-base \
     openssh \
     openssl \
+    openssl-dev \
     && rm -rf /var/cache/apk/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
