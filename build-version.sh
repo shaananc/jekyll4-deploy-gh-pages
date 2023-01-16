@@ -10,12 +10,13 @@ installed="bundle"
 version=$1
 project_name=foa-website
 
+git config --global --add safe.directory .
 # Get the latest commit SHA in sourcedir branch
 last_SHA=($(git log -n 1 --pretty=oneline))
 # The name of the temporary folder will be the
 #   last commit SHA, to prevent possible conflicts
 #   with other folder names.
-clone_dir="/tmp/clone_$last_SHA/"
+clone_dir="/tmp/clone_$last_SHA_$version/"
 echo $last_SHA
 
 # Make sure Jekyll is installed locally
