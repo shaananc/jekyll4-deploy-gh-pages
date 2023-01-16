@@ -10,7 +10,7 @@ installed="bundle"
 version=$1
 project_name=foa-website
 
-git config --global --add safe.directory .
+git config --global --add safe.directory $original_wd
 # Get the latest commit SHA in sourcedir branch
 last_SHA=($(git log -n 1 --pretty=oneline))
 # The name of the temporary folder will be the
