@@ -19,6 +19,7 @@ ssh-add ~/.ssh/id_ed25519 && true
 
 git config --global --add safe.directory /github/workspace
 git checkout main
+git config --system --add safe.directory *
 
 echo "Installing gems..."
 
@@ -44,7 +45,6 @@ fi
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Building Jekyll site for version ${version}..."
   bash $SCRIPT_DIR/build-version.sh ${version}
-  #JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll build --config _config.yml,_config.${version}.yml
 done
 
 publishdate=$(date +%m-%d-%Y)

@@ -1,6 +1,7 @@
 FROM ruby:3.1.3-alpine3.17
 
 RUN apk add --update-cache \
+    curl \
     vips-dev \
     libpng-dev \
     libwebp-dev \
@@ -28,7 +29,8 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 RUN gem install bundler
 
 
-ADD build-version.sh /build-version.sh
-ADD entrypoint.sh /entrypoint.sh
+#ADD build-version.sh /build-version.sh
+#ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["bash","/entrypoint.sh"]
+#ENTRYPOINT ["bash","/entrypoint.sh"]
+ENTRYPOINT ["bash"]
