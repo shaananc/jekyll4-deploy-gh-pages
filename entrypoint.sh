@@ -18,8 +18,8 @@ eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_ed25519 && true
 
 git config --global --add safe.directory /github/workspace
+git config --system --add safe.directory .
 git checkout main
-git config --system --add safe.directory *
 
 echo "Installing gems..."
 
