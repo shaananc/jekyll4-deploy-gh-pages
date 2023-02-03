@@ -32,5 +32,5 @@ RUN gem install bundler
 #ADD build-version.sh /build-version.sh
 #ADD entrypoint.sh /entrypoint.sh
 
-#ENTRYPOINT ["bash","/entrypoint.sh"]
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["bash","/entrypoint.sh"]
+#ENTRYPOINT ["bash"]
