@@ -1,6 +1,7 @@
 FROM ruby:3.1.3-alpine3.17
 
 RUN apk add --update-cache \
+    jq \
     curl \
     vips-dev \
     libpng-dev \
