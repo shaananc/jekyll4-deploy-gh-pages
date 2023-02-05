@@ -130,6 +130,7 @@ NEW_BRANCH_NAME=$(git branch --show-current)
 OLD_BRANCH_NAME=$NEW_BRANCH_NAME
 
 git checkout main
+git pull
 git checkout $NEW_BRANCH_NAME
 
 # if BRANCH_NAME is main then set the tag to current_version in config.yml
