@@ -136,6 +136,7 @@ mkdir -p $DEST
 mkdir -p /tmp/$BRANCH_NAME
 tar -xzf $BRANCH_NAME.tar.gz -C /tmp/$BRANCH_NAME
 mv /tmp/$BRANCH_NAME/_site $DEST/$OLD_BRANCH_NAME
+ls $DEST/$OLD_BRANCH_NAME
 rm $BRANCH_NAME.tar.gz
 
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
@@ -175,4 +176,4 @@ CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
 cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
 
 mkdir -p /tmp/gh-pages
-tar -czf /tmp/gh-pages.tar.gz $DEST/*
+tar -czf /tmp/github-pages $DEST/*
