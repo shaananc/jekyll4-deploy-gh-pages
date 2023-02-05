@@ -160,8 +160,6 @@ echo $publishdate >publishdate.log
 
 echo "Publishing..."
 
-#cd ${DEST}
-
 # git init
 # git config user.name "${GITHUB_ACTOR}"
 # git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
@@ -175,4 +173,5 @@ CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
 cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
 
 mkdir -p /tmp/gh-pages
-tar -czf /tmp/github-pages $DEST/*
+cd ${DEST}
+tar -czf /tmp/gh-pages/github-pages *
