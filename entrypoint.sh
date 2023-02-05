@@ -59,7 +59,7 @@ function build_release() {
 
   # Get the ID of the release with the same name, if it exists
   RELEASE_ID=$(curl -s -H "Authorization: Token $GITHUB_TOKEN" \
-    $API_ENDPOINT/tags/$TAG | jq '.id')
+    $API_ENDPOINT/releases/tags/$TAG | jq '.id')
 
   # If the release exists, delete it
   if [ "$RELEASE_ID" != "null" ]; then
@@ -97,7 +97,7 @@ function fetch_other_release() {
 
   # Get the ID of the release with the specified tag
   RELEASE_ID=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-    $API_ENDPOINT/tags/$releasename | jq '.id')
+    $API_ENDPOINT/releases/tags/$releasename | jq '.id')
 
   echo "Release id is $RELEASE_ID"
 
