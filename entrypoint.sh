@@ -144,9 +144,9 @@ cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   # check if the fetch was successful
   if [ $? -eq 1 ]; then
     echo "Creating release for version $version"
-    git checkout $version
+    git checkout -f $version
     build_release $version false
-    git checkout $OLD_BRANCH_NAME
+    git checkout -f $OLD_BRANCH_NAME
   fi
 
   mkdir -p /tmp/$version
@@ -170,7 +170,7 @@ echo "Publishing..."
 # git push --force ${REPO} master:${BRANCH}
 
 git config --global --add safe.directory /github/workspace
-git checkout main
+git checkout -f main
 CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
 cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
 
