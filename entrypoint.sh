@@ -123,6 +123,8 @@ function fetch_other_release() {
 publishdate=$(date +%m-%d-%Y)
 echo "Creating release for current branch"
 
+git pull origin main
+
 # Define the API endpoint for creating a release
 NEW_BRANCH_NAME=$(git branch --show-current)
 OLD_BRANCH_NAME=$NEW_BRANCH_NAME
