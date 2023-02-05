@@ -54,7 +54,7 @@ function build_release() {
   # Define the tag for the release
   TAG=$BRANCH_NAME
 
-  GITHUB_TOKEN=$(cat .github-token)
+  #GITHUB_TOKEN=$(cat .github-token)
 
   # Define the name of the file to be uploaded
   FILENAME="$BRANCH_NAME.tar.gz"
