@@ -11,7 +11,7 @@ DEST="/tmp/_site"
 REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 BRANCH="gh-pages"
 BUNDLE_BUILD__SASSC=--disable-march-tune-native
-API_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY/releases"
+API_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY"
 GZIP="-9"
 
 # add ssh key from $DEPLOY_KEY
@@ -64,7 +64,7 @@ function build_release() {
   # If the release exists, delete it
   if [ "$RELEASE_ID" != "null" ]; then
     curl -X DELETE -H "Authorization: Token $GITHUB_TOKEN" \
-      $API_ENDPOINT/$RELEASE_ID
+      $API_ENDPOINT/releases/$RELEASE_ID
   fi
 
   # Package up the current directory into a tar archive
@@ -74,7 +74,7 @@ function build_release() {
   RESPONSE=$(curl --data '{"tag_name": "'"$TAG"'", "name": "'"$TAG"'", "draft": false, "prerelease": false}' \
     -H "Authorization: Token $GITHUB_TOKEN" \
     -H "Content-Type: application/json" \
-    -X POST $API_ENDPOINT)
+    -X POST $API_ENDPOINT/releases)
 
   echo $RESPONSE >response.log
 
@@ -110,7 +110,7 @@ function fetch_other_release() {
 
   # Fetch the asset URL for the specified file
   ASSET_URL=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-    $API_ENDPOINT/$RELEASE_ID/assets | jq -r ".[].url")
+    $API_ENDPOINT/releases/$RELEASE_ID/assets | jq -r ".[].url")
 
   # Download the specified file
   echo "Downloading $ASSET_URL"
@@ -124,20 +124,19 @@ publishdate=$(date +%m-%d-%Y)
 echo "Creating release for current branch"
 
 # Define the API endpoint for creating a release
-BRANCH_NAME=$(git branch --show-current)
-OLD_BRANCH_NAME=$BRANCH_NAME
+NEW_BRANCH_NAME=$(git branch --show-current)
+OLD_BRANCH_NAME=$NEW_BRANCH_NAME
 # if BRANCH_NAME is main then set the tag to current_version in config.yml
-if [ "$BRANCH_NAME" = "main" ]; then
-  BRANCH_NAME=$(cat _config.yml | yq '.current_version' -r)
+if [ "$NEW_BRANCH_NAME" = "main" ]; then
+  NEW_BRANCH_NAME=$(cat _config.yml | yq '.current_version' -r)
 fi
 
-build_release $BRANCH_NAME true
+build_release $NEW_BRANCH_NAME true
 mkdir -p $DEST
-mkdir -p /tmp/$BRANCH_NAME
-tar -xzf $BRANCH_NAME.tar.gz -C /tmp/$BRANCH_NAME
-mv /tmp/$BRANCH_NAME/_site $DEST/$OLD_BRANCH_NAME
-ls $DEST/$OLD_BRANCH_NAME
-rm $BRANCH_NAME.tar.gz
+mkdir -p /tmp/$NEW_BRANCH_NAME
+tar -xzf $NEW_BRANCH_NAME-release.tar.gz -C /tmp/$NEW_BRANCH_NAME
+mv /tmp/$NEW_BRANCH_NAME/_site $DEST/$NEW_BRANCH_NAME
+rm $NEW_BRANCH_NAME-release.tar.gz
 
 cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Fetching release for version $version"
