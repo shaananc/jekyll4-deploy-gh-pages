@@ -45,7 +45,7 @@ function build_release() {
     if [[ -z "${ALGOLIA_API_KEY}" ]]; then
       echo "No Algolia API key provided"
     else
-      JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia
+      JEKYLL_ENV=production NODE_ENV=production bundle exec jekyll algolia --config _config.yml,_config.$1.yml
     fi
   fi
 
