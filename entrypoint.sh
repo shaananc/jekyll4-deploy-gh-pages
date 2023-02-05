@@ -160,18 +160,20 @@ echo $publishdate >publishdate.log
 
 echo "Publishing..."
 
-# git init
-# git config user.name "${GITHUB_ACTOR}"
-# git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-# git add .
-# git commit -m "published by GitHub Actions"
-# git push --force ${REPO} master:${BRANCH}
-
 git config --global --add safe.directory /github/workspace
 git checkout -f main
 CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
 cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
 
-mkdir -p /tmp/gh-pages
 cd ${DEST}
-tar -czf /tmp/gh-pages/github-pages *
+
+git init
+git config user.name "${GITHUB_ACTOR}"
+git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+git add .
+git commit -m "published by GitHub Actions"
+git push --force ${REPO} master:${BRANCH}
+
+# mkdir -p /tmp/gh-pages
+# cd ${DEST}
+# tar -czf /tmp/gh-pages/github-pages *
