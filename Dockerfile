@@ -30,7 +30,6 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 RUN gem install bundler
 
 
-ADD build-version.sh /build-version.sh
 ADD entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["bash","/entrypoint.sh"]
