@@ -139,6 +139,12 @@ mv /tmp/$NEW_BRANCH_NAME/_site $DEST/$NEW_BRANCH_NAME
 rm $NEW_BRANCH_NAME-release.tar.gz
 
 git show main:_config.yml | yq '.past_versions[]' -r | while read -r version; do
+  # skip if $version is equal to $NEW_BRANCH_NAME
+  if [ "$version" = "$NEW_BRANCH_NAME" ]; then
+    echo "Skipping $version in fetch phase as it is the current branch..."
+    continue
+  fi
+
   echo "Fetching release for version $version"
   fetch_other_release $version
   # check if the fetch was successful
