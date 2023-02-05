@@ -128,6 +128,10 @@ git fetch origin main
 # Define the API endpoint for creating a release
 NEW_BRANCH_NAME=$(git branch --show-current)
 OLD_BRANCH_NAME=$NEW_BRANCH_NAME
+
+git checkout main
+git checkout $NEW_BRANCH_NAME
+
 # if BRANCH_NAME is main then set the tag to current_version in config.yml
 if [ "$NEW_BRANCH_NAME" = "main" ]; then
   NEW_BRANCH_NAME=$(git show main:_config.yml | yq '.current_version' -r)
