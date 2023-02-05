@@ -128,7 +128,7 @@ NEW_BRANCH_NAME=$(git branch --show-current)
 OLD_BRANCH_NAME=$NEW_BRANCH_NAME
 # if BRANCH_NAME is main then set the tag to current_version in config.yml
 if [ "$NEW_BRANCH_NAME" = "main" ]; then
-  NEW_BRANCH_NAME=$(cat _config.yml | yq '.current_version' -r)
+  NEW_BRANCH_NAME=$(git show main:_config.yml | yq '.current_version' -r)
 fi
 
 build_release $NEW_BRANCH_NAME true
@@ -138,7 +138,7 @@ tar -xzf $NEW_BRANCH_NAME-release.tar.gz -C /tmp/$NEW_BRANCH_NAME
 mv /tmp/$NEW_BRANCH_NAME/_site $DEST/$NEW_BRANCH_NAME
 rm $NEW_BRANCH_NAME-release.tar.gz
 
-cat _config.yml | yq '.past_versions[]' -r | while read -r version; do
+git show main:_config.yml | yq '.past_versions[]' -r | while read -r version; do
   echo "Fetching release for version $version"
   fetch_other_release $version
   # check if the fetch was successful
