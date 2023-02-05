@@ -12,6 +12,7 @@ REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 BRANCH="gh-pages"
 BUNDLE_BUILD__SASSC=--disable-march-tune-native
 API_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY/releases"
+GZIP="-9"
 
 # add ssh key from $DEPLOY_KEY
 mkdir -p ~/.ssh && true
@@ -19,9 +20,6 @@ echo "$DEPLOY_KEY" >~/.ssh/id_ed25519_deploy
 chmod 600 ~/.ssh/id_ed25519_deploy
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_ed25519_deploy && true
-
-#git config --global --add safe.directory /github/workspace
-#git checkout main
 
 function build_release() {
   BRANCH_NAME=$1-release
@@ -170,3 +168,11 @@ echo "Publishing..."
 # git add .
 # git commit -m "published by GitHub Actions"
 # git push --force ${REPO} master:${BRANCH}
+
+git config --global --add safe.directory /github/workspace
+git checkout main
+CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
+cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
+
+mkdir -p /tmp/gh-pages
+tar -czf /tmp/gh-pages.tar.gz $DEST/*
