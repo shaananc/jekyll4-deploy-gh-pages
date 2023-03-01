@@ -123,6 +123,7 @@ function fetch_other_release() {
 publishdate=$(date +%m-%d-%Y)
 echo "Creating release for current branch"
 
+git config --global --add safe.directory /github/workspace
 git fetch origin main
 
 # Define the API endpoint for creating a release
