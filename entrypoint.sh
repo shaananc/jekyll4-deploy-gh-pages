@@ -187,6 +187,8 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git add .
 git commit -m "published by GitHub Actions"
+git config --global pack.window 1
+
 git push --force ${REPO} master:${BRANCH}
 
 # mkdir -p /tmp/gh-pages
