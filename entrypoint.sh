@@ -81,7 +81,7 @@ function build_release() {
   RELEASE_ID=$(jq .id <<<$RESPONSE)
 
   # Upload the tar archive to the latest release
-  curl -H "Authorization: Token $GITHUB_TOKEN" \
+  curl --retry 5 --retry-all-errors -H "Authorization: Token $GITHUB_TOKEN" \
     -H "Content-Type: application/gzip" \
     --data-binary "@$FILENAME" \
     "https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets?name=$FILENAME"
