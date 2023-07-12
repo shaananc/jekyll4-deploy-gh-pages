@@ -193,6 +193,7 @@ git config http.lowSpeedTime 600
 mkdir -p ~/.ssh && true
 mkdir -p /root/.ssh && true 
 touch ~/.ssh/known_hosts
+touch /root/.ssh/known_hosts
 ssh-keygen -R github.com
 curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >> ~/.ssh/known_hosts
 cp ~/.ssh/known_hosts /root/.ssh/known_hosts
