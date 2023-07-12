@@ -193,7 +193,7 @@ git config http.lowSpeedTime 600
 
 
 
-git push --force $GITHUB_SERVER_URL/$GITHUB_REPOSITORY master:${BRANCH}
+git push --force git@github.com/$GITHUB_REPOSITORY.git master:${BRANCH}
 
 # mkdir -p /tmp/gh-pages
 # cd ${DEST}
