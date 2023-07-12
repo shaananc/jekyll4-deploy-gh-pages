@@ -192,6 +192,8 @@ git config http.lowSpeedTime 600
 
 
 ssh-keygen -R github.com
+mkdir -p ~/.ssh && true
+touch ~/.ssh/known_hosts
 curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >> ~/.ssh/known_hosts
 ssh -vvv git@github.com
 git branch -m master main
