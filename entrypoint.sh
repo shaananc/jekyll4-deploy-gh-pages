@@ -191,7 +191,7 @@ git config --global http.postBuffer 524288000
 git config http.lowSpeedTime 600
 
 
-
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 git branch -m master main
 git push --force git@github.com:$GITHUB_REPOSITORY.git main:${BRANCH}
 
