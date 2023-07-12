@@ -191,18 +191,9 @@ git config --global http.postBuffer 524288000
 git config http.lowSpeedTime 600
 
 
-# Check if the HTTPS URL was provided
-if [[  "$REPO" =~ ^https:// ]]; then
-        https_url="$REPO"
 
-        # Transform the HTTPS URL to SSH version
-        ssh_url="${https_url/https:\/\/github.com/git@github.com}"
-        ssh_url="${ssh_url%.git/}"
 
-        REPO=$ssh_url
-fi
-
-git push --force ${REPO} master:${BRANCH}
+git push --force $GITHUB_SERVER_URL/$GITHUB_REPOSITORY master:${BRANCH}
 
 # mkdir -p /tmp/gh-pages
 # cd ${DEST}
