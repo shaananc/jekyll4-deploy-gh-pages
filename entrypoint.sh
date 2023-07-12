@@ -103,7 +103,7 @@ function fetch_other_release() {
 
   if [ -z "$RELEASE_ID" ] || [ "$RELEASE_ID" = "null" ]; then
     echo "Release $version does not exist"
-    return 1
+    return 0
   fi
 
   echo "Release $version exists with id $RELEASE_ID"
