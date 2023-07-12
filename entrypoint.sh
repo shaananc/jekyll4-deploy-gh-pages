@@ -190,12 +190,10 @@ git config --global pack.window 1
 git config --global http.postBuffer 524288000
 git config http.lowSpeedTime 600
 
-
-ssh-keygen -R github.com
 mkdir -p ~/.ssh && true
 touch ~/.ssh/known_hosts
+ssh-keygen -R github.com
 curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >> ~/.ssh/known_hosts
-ssh -vvv git@github.com
 git branch -m master main
 git remote add origin git@github.com:$GITHUB_REPOSITORY.git
 git push --force origin main:${BRANCH}
