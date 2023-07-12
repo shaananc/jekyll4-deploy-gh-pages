@@ -193,7 +193,8 @@ git config http.lowSpeedTime 600
 
 ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 git branch -m master main
-git push --force git@github.com:$GITHUB_REPOSITORY.git main:${BRANCH}
+git remote -set-url origin git@github.com:$GITHUB_REPOSITORY.git
+git push --force main:${BRANCH}
 
 # mkdir -p /tmp/gh-pages
 # cd ${DEST}
