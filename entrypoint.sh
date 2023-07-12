@@ -154,9 +154,8 @@ git show main:_config.yml | yq '.past_versions[]' -r | while read -r version; do
   fi
 
   echo "Fetching release for version $version"
-  fetch_other_release $version
   # check if the fetch was successful
-  if [ $? -eq 1 ]; then
+  if  ! fetch_other_release $version; then
     echo "Creating release for version $version"
     git checkout -f $version
     build_release $version false
