@@ -197,7 +197,7 @@ if [[  "$REPO" =~ ^https:// ]]; then
 
         # Transform the HTTPS URL to SSH version
         ssh_url="${https_url/https:\/\/github.com/git@github.com}"
-        ssh_url="${ssh_url%.git/}.git"
+        ssh_url="${ssh_url%.git/}"
 
         REPO=$ssh_url
 fi
