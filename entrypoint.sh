@@ -155,7 +155,7 @@ git show main:_config.yml | yq '.past_versions[]' -r | while read -r version; do
 
   echo "Fetching release for version $version"
   # check if the fetch was successful
-  if  ! fetch_other_release $version; then
+  if ! fetch_other_release $version; then
     echo "Creating release for version $version"
     git checkout -f $version
     build_release $version false
@@ -177,6 +177,7 @@ git config --global --add safe.directory /github/workspace
 git checkout -f main
 CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
 cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
+cp $DEST/$CURRENT_VERSION/skip.html $DEST/skip.html && true
 cp $DEST/$CURRENT_VERSION/CNAME $DEST/CNAME || true
 
 cd ${DEST}
@@ -191,11 +192,11 @@ git config --global http.postBuffer 524288000
 git config http.lowSpeedTime 600
 
 mkdir -p ~/.ssh && true
-mkdir -p /root/.ssh && true 
+mkdir -p /root/.ssh && true
 touch ~/.ssh/known_hosts
 touch /root/.ssh/known_hosts
 ssh-keygen -R github.com
-curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >> ~/.ssh/known_hosts
+curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/github.com /' >>~/.ssh/known_hosts
 cp ~/.ssh/known_hosts /root/.ssh/known_hosts
 git branch -m master main
 git remote add origin git@github.com:$GITHUB_REPOSITORY.git
