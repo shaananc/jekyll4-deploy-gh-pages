@@ -1,4 +1,5 @@
-FROM ruby:3.1.3-alpine3.17
+FROM ruby:3.4-alpine3.17
+
 
 RUN apk add --update-cache \
     jq \
@@ -27,6 +28,7 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
     chmod +x /usr/bin/yq
 
 # install a modern bundler version
+RUN gem update --system
 RUN gem install bundler
 
 
