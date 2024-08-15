@@ -1,4 +1,4 @@
-FROM ruby:3.1
+FROM ruby:3.4
 
 RUN apt-get update && apt-get install -y \
     libvips-dev \
@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # install a modern bundler version
+RUN gem update --system
 RUN gem install bundler
+
 
 
 
