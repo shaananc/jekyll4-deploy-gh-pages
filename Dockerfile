@@ -1,21 +1,38 @@
-FROM ruby:3.4
+FROM ruby:3.4-alpine3.17
 
-RUN apt-get update && apt-get install -y \
-    libvips-dev \
-    libvips-tools \
+
+RUN apk add --update-cache \
+    jq \
+    curl \
+    vips-dev \
     libpng-dev \
     libwebp-dev \
-    libjpeg-dev \
+    jpeg-dev \
     libheif-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libffi-dev \
+    bash \
+    git \
+    gcc \
+    build-base \
+    openssh \
+    openssl \
+    openssl-dev \
+    libxml2-dev \
+    libxslt-dev \
+    gcompat \
+    vips \
+    vips-tools \
+    && rm -rf /var/cache/apk/*
+
+RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+    chmod +x /usr/bin/yq
 
 # install a modern bundler version
 RUN gem update --system
 RUN gem install bundler
 
 
-
-
 ADD entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["bash","/entrypoint.sh"]
+#ENTRYPOINT ["bash"]
