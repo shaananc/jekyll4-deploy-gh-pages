@@ -1,4 +1,4 @@
-FROM ruby:3.4-alpine3.17
+FROM ruby:3.3.4-alpine3.20
 
 
 RUN apk add --update-cache \
