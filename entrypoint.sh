@@ -176,7 +176,7 @@ echo "Publishing..."
 git config --global --add safe.directory /github/workspace
 git checkout -f main
 CURRENT_VERSION=$(cat _config.yml | yq '.current_version' -r)
-cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html
+cp $DEST/$CURRENT_VERSION/redirect.html $DEST/index.html || true
 cp $DEST/$CURRENT_VERSION/skip.html $DEST/skip.html || true
 cp $DEST/$CURRENT_VERSION/aap.html $DEST/aap.html || true
 cp $DEST/$CURRENT_VERSION/CNAME $DEST/CNAME || true
