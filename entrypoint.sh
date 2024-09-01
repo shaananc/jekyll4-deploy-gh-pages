@@ -8,7 +8,7 @@ set -x
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 DEST="/tmp/_site"
-REPO="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+REPO="git@github.com:${GITHUB_REPOSITORY}.git"
 BRANCH="gh-pages"
 BUNDLE_BUILD__SASSC=--disable-march-tune-native
 API_ENDPOINT="https://api.github.com/repos/$GITHUB_REPOSITORY"
