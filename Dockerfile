@@ -1,4 +1,4 @@
-FROM ruby:3.3.4-alpine3.20
+FROM ruby:3.3-alpine
 
 
 RUN apk add --update-cache \
@@ -35,4 +35,3 @@ RUN gem install bundler
 ADD entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["bash","/entrypoint.sh"]
-#ENTRYPOINT ["bash"]
