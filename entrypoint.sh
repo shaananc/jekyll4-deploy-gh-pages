@@ -182,6 +182,9 @@ cp $DEST/$CURRENT_VERSION/aap.html $DEST/aap.html || true
 cp $DEST/$CURRENT_VERSION/CNAME $DEST/CNAME || true
 
 cd ${DEST}
+if [ ! -f "$DEST/$CURRENT_VERSION/redirect.html" ]; then
+  cd $CURRENT_VERSION
+fi
 
 git init
 git config user.name "${GITHUB_ACTOR}"
