@@ -186,6 +186,7 @@ if [ ! -f "$DEST/$CURRENT_VERSION/redirect.html" ]; then
   cd $CURRENT_VERSION
 fi
 
+git config --global init.defaultBranch main
 git init
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
