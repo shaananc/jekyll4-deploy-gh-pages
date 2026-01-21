@@ -180,8 +180,13 @@ PUBLISH_DIR="$DEST"
 
 git config --global init.defaultBranch main
 git -C "$PUBLISH_DIR" init
-git -C "$PUBLISH_DIR" config user.name "${GITHUB_ACTOR}"
-git -C "$PUBLISH_DIR" config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+if [ "${USE_ACTIONS_USER:-}" ]; then
+  git -C "$PUBLISH_DIR" config user.name "github-actions[bot]"
+  git -C "$PUBLISH_DIR" config user.email "github-actions[bot]@users.noreply.github.com"
+else
+  git -C "$PUBLISH_DIR" config user.name "${GITHUB_ACTOR}"
+  git -C "$PUBLISH_DIR" config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+fi
 
 git -C "$PUBLISH_DIR" add -A
 git -C "$PUBLISH_DIR" commit -m "published by GitHub Actions" || true
