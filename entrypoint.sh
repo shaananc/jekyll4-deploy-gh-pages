@@ -184,8 +184,13 @@ cp $DEST/$CURRENT_VERSION/CNAME $DEST/CNAME || true
 cd ${DEST}
 
 git init
-git config user.name "${GITHUB_ACTOR}"
-git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+if [ "${USE_ACTIONS_USER:-}" ]; then
+  git config user.name "github-actions[bot]"
+  git config user.email "github-actions[bot]@users.noreply.github.com"
+else
+  git config user.name "${GITHUB_ACTOR}"
+  git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+fi
 git add .
 git commit -m "published by GitHub Actions"
 git config --global pack.window 1
