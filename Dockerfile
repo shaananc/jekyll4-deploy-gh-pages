@@ -1,28 +1,30 @@
-FROM ruby:3.4-alpine
+FROM ruby:3.3-slim
 
 
-RUN apk add --update-cache \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     jq \
     curl \
-    vips-dev \
+    libvips42 \
+    libvips-dev \
+    libvips-tools \
     libpng-dev \
     libwebp-dev \
-    jpeg-dev \
+    libjpeg-dev \
     libheif-dev \
     libffi-dev \
     bash \
     git \
     gcc \
-    build-base \
-    openssh \
+    g++ \
+    make \
+    openssh-client \
     openssl \
-    openssl-dev \
     libxml2-dev \
     libxslt-dev \
-    gcompat \
-    vips \
-    vips-tools \
-    && rm -rf /var/cache/apk/*
+    ca-certificates \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
     chmod +x /usr/bin/yq
