@@ -24,6 +24,7 @@ RUN apt-get update && \
     libxslt-dev \
     ca-certificates \
     wget \
+    xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
